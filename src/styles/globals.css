@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --blue: #3b82f6;
+  --blue-dark: #1d4ed8;
+  --blue-light: #eff6ff;
+  --blue-mid: #dbeafe;
+  --gray-bg: #f1f5f9;
+  --white: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text2: #475569;
+  --text3: #64748b;
+  --muted: #94a3b8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic',
+    'Apple SD Gothic Neo', sans-serif;
+  background: var(--gray-bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+input, textarea, select, button { font-family: inherit; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade { animation: fadeIn 0.3s ease both; }
+
+/* ── 모바일 반응형 ── */
+@media (max-width: 768px) {
+  /* 헤더 */
+  header { padding: 0 14px !important; gap: 8px !important; }
+  header .logo-sub { display: none; }
+
+  /* 탭 */
+  nav { padding: 0 8px !important; }
+
+  /* 메인 패딩 */
+  main { padding: 12px 14px !important; }
+
+  /* 홈 3컬럼 → 1컬럼 */
+  .home-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .home-left { display: none !important; }
+  .home-right { order: -1; }
+
+  /* 설정 2컬럼 → 1컬럼 */
+  .settings-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .settings-sidenav { display: none !important; }
+
+  /* 공지/게시판 테이블 */
+  .board-table-head { display: none !important; }
+  .board-table-row {
+    grid-template-columns: 1fr !important;
+    gap: 4px !important;
+  }
+
+  /* 체크리스트 2컬럼 → 1컬럼 */
+  .checklist-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 학사일정 2컬럼 → 1컬럼 */
+  .schedule-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 관리자 테이블 */
+  .admin-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 기능 카드 3컬럼 → 2컬럼 */
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* 온보딩 */
+  .role-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 폼 2컬럼 → 1컬럼 */
+  .form-row-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 채팅 높이 */
+  .chat-wrap {
+    height: calc(100vh - 120px) !important;
+  }
+
+  /* 버튼 텍스트 숨김 */
+  .btn-text-hide { display: none !important; }
+
+  /* AI 챗봇 버튼 */
+  .chat-btn-label { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  /* 더 작은 화면 */
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  header { height: 52px !important; }
+}
