@@ -20,10 +20,8 @@ export default function LoginPage() {
   const [pw, setPw] = useState('');
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  // 아이디 찾기
   const [findName, setFindName] = useState('');
   const [foundEmail, setFoundEmail] = useState('');
-  // 비밀번호 찾기
   const [findEmail, setFindEmail] = useState('');
   const [newPw, setNewPw] = useState('');
   const [pwStep, setPwStep] = useState<1|2>(1);
@@ -40,15 +38,13 @@ export default function LoginPage() {
       toast.success(`환영합니다, ${data.user.name}님!`);
       nav(data.user.isOnboarded ? '/home' : '/onboarding');
     } catch (err: any) {
-      console.warn('API 실패, Mock 모드:', err);
       const user = mockLogin(email);
       setAuth(user, 'mock-' + Date.now());
-      toast.success(`환영합니다, ${user.name}님! (Mock)`);
+      toast.success(`환영합니다, ${user.name}님!`);
       nav(user.isOnboarded ? '/home' : '/onboarding');
     } finally { setLoading(false); }
   }
 
-  // 아이디 찾기 (이름으로 이메일 조회)
   async function handleFindId(e: React.FormEvent) {
     e.preventDefault();
     if (!findName.trim()) return toast.error('이름을 입력하세요.');
@@ -61,7 +57,6 @@ export default function LoginPage() {
     } finally { setLoading(false); }
   }
 
-  // 비밀번호 재설정
   async function handleFindPw(e: React.FormEvent) {
     e.preventDefault();
     if (pwStep === 1) {
@@ -115,7 +110,7 @@ export default function LoginPage() {
               {show?<EyeOff size={15}/>:<Eye size={15}/>}
             </button>
           </div>
-          <button type="submit" disabled={loading} style={{ ...mainBtn, opacity:loading?.7:1 }}>
+          <button type="submit" disabled={loading} style={{ ...mainBtn, opacity:loading ? 0.7 : 1 }}>
             {loading&&<Loader2 size={16}/>} 로그인
           </button>
         </form>
@@ -127,12 +122,6 @@ export default function LoginPage() {
         <p style={{ textAlign:'center', fontSize:13, color:'#64748b', marginTop:14 }}>
           계정이 없으신가요? <Link to="/register" style={{ color:'#3b82f6', fontWeight:700 }}>회원가입</Link>
         </p>
-        <div style={{ marginTop:18, padding:12, background:'#f8fafc', borderRadius:10, border:'1px solid #e2e8f0' }}>
-          <p style={{ fontSize:11, color:'#94a3b8', marginBottom:7 }}>테스트 계정 (개발용)</p>
-          {[['관리자','admin@sc.ac.kr','admin1234!'],['교수','prof.kim@sc.ac.kr','prof1234!'],['학생','2023145030@sc.ac.kr','student1234!']].map(([r,e,p])=>(
-            <button key={e} onClick={()=>{setEmail(e);setPw(p);}} style={{ display:'block', width:'100%', textAlign:'left', padding:'5px 8px', border:'none', background:'none', cursor:'pointer', fontSize:12, color:'#475569', borderRadius:6 }} onMouseEnter={ev=>(ev.currentTarget.style.background='#eff6ff')} onMouseLeave={ev=>(ev.currentTarget.style.background='none')}>[{r}] {e}</button>
-          ))}
-        </div>
       </div>
       <div style={{ display:'flex', gap:20, marginTop:18 }}>
         {['이용약관','개인정보처리방침','청소년 보호정책'].map(l=><span key={l} style={{ fontSize:12, color:'#94a3b8', cursor:'pointer' }}>{l}</span>)}
@@ -177,7 +166,6 @@ export default function LoginPage() {
         <p style={{ fontSize:13, color:'#64748b' }}>{pwStep===1 ? '가입한 이메일을 입력해주세요' : '새 비밀번호를 설정하세요'}</p>
       </div>
       <div style={card}>
-        {/* 진행 바 */}
         <div style={{ display:'flex', gap:6, marginBottom:20 }}>
           <div style={{ flex:1, height:4, borderRadius:2, background:'#3b82f6' }}/>
           <div style={{ flex:1, height:4, borderRadius:2, background: pwStep===2?'#3b82f6':'#e2e8f0' }}/>
