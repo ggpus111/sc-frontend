@@ -46,7 +46,7 @@ export const useAuth = create<AuthStore>((set) => ({
 }));
 
 // ── 실제 API 호출 함수 ──
-const API = 'http://localhost:4000/api';
+const API = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
 
 function getToken() {
   return localStorage.getItem('sc_token');
